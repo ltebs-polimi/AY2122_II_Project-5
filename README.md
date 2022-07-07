@@ -34,7 +34,7 @@ This section contains all the code needed by the GUI to access to the data sampl
 This section of code is responsible for data acquisition and processing, which includes managing the PSoC registers (reading them, writing them and averaging the values sampled by both sensors) and for the communication between the bluetooth module and the pc. 
 
 The different operations are managed with an UART which parses through the operations based on the data it receives from the GUI. 
-When the user clicks $Start  sampling$ the PSoC code is put into motion, the data from the accelerometers is sampled, averaged, and sent back to the GUI with the bluetooth module, for each position.
+When the user clicks $Start$ $sampling$ the PSoC code is put into motion, the data from the accelerometers is sampled, averaged, and sent back to the GUI with the bluetooth module, for each position.
 
 
 All code files of this section have been individually commented for clarity.
@@ -42,12 +42,12 @@ All code files of this section have been individually commented for clarity.
 ### GUI code
 This section of code deals with establishing a connection between pc and PSoC device via bluetooth module, visualizing the data sampled in real time and producing a csv files with all the samplings used to train the machine learning module. 
 It follows a description of the most important subsections of code, but the code has been commented throughout for clarity.
-#### $Serial interface$
+#### $Serial$ $interface$
 This subsection is devoted to scanning all serial ports and createing a list used in the drowp down menu
-#### $Serial Worker$
+#### $Serial$ $Worker$
 The **Serial Worker** class handles the connection with the PSoC device by estabilishing a connection with desired serial port (selectable in a drop down menu), reading data from desired serial port from start (S) to end (E) tokens, **storing iteratively** the read lines in the data object and saving them at the end of the protocol in a single csv file.  
 It's also responsible for sending char data on the serial port and closing the serial port before closing the app.
-#### $Graphic interface$ 
+#### $Graphic$ $interface$ 
 This sub-section of code deals with creating the window used by all the plot widgets and the various buttons. 
 It's worth noting that the 6 data charts are plotted on the same window by first removing oldest element, then adding the new elements, and finally updating the data.
 #### $Main$
