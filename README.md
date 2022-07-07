@@ -39,19 +39,19 @@ All code files of this section have been individually commented for clarity.
 ### GUI code
 This section of code deals with establishing a connection between pc and PSoC device via bluetooth module, visualizing the data sampled in real time and producing a csv files with all the samplings used to train the machine learning module. 
 It follows a description of the most important subsections of code
-$Serial interface$
+#### $Serial interface$
 This subsection is devoted to scanning all serial ports and createing a list used in the drowp down menu
-$Serial Worker$
+#### $Serial Worker$
 The **Serial Worker** class handles the connection with the PSoC device by estabilishing a connection with desired serial port (selectable in a drop down menu), reading data from desired serial port from start (S) to end (E) tokens, **storing iteratively** the read lines in the data object and saving them at the end of the protocol in a single csv file.  
 It's also responsible for sending char data on the serial port and closing the serial port before closing the app.
-$Graphic interface$ 
+#### $Graphic interface$ 
 This sub-section of code deals with creating the window used by all the plot widgets and the various buttons. 
 It's worth noting that the 6 data charts are plotted on the same window by first removing oldest element, then adding the new elements, and finally updating the data.
-$Main$
+#### $Main$
 The main is responsible for setting the window size, creating the thread handler and initializing all the functions previously mentioned.
 
 ### Machine Learning
-**Install**
+#### $Install$
 The Machine Learning portion of this project was created using a shared Jupyter Notebook. It requires the following Python libraries:
 - [NumPy](http://www.numpy.org/)
 - [Pandas](http://pandas.pydata.org)
@@ -61,18 +61,18 @@ The Machine Learning portion of this project was created using a shared Jupyter 
 
 Every library used and any function needed is clearly listed and commented troughout the code.
 
-$Data$
+#### $Data$
 In order to run the code, it's necessary to download the csv files produced by us during the sampling, and either install them in the path 
 /content/drive/MyDrive/Sleep_classifier/, or change the path used in that cell while running the code.
 
 The data consists in 11 csv files sampled from 11 different people, it's worth nothing that the file 'fabio_20220601_193018.csv' was discarted 
 due to errors during the sampling procedure, thus we ended up with 10 different people, in order to guarantee inter-subject variabilty.
 
-$Run$
+##### $Run$
 To run the code, simply run sequentially every data cell. 
 The gridsearch function will be available, but only the best parameters will be provided for each model. 
 
-**Features**
+#### $Features$
 The data was gathered from 2 accelerometers, one on the chest and one on the right ankle therefore we have 6 inputs:
 - x_chest
 - y_chest
@@ -81,6 +81,6 @@ The data was gathered from 2 accelerometers, one on the chest and one on the rig
 - y_ankle
 - z_ankle
 
-**Target Variable**
+#### $Target Variable$
 The variable that we need to predict is the sleeping position. It can be one of twelve position
 
