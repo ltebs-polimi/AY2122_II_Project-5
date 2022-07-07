@@ -65,15 +65,23 @@ The Machine Learning portion of this project was created using a shared Jupyter 
 Every library used and any function needed is clearly listed and commented troughout the code.
 
 #### $Data$
-In order to run the code, it's necessary to download the csv files produced by us during the sampling, and either install them in the path 
-/content/drive/MyDrive/Sleep_classifier/, or change the path used in that cell while running the code.
+In order to run the code, it's necessary to download the csv files produced by us during the sampling, when downloading this folder they will be automatically installed in the *dataset* path, allowingto easily run the code.
 
 The data consists in 11 csv files sampled from 11 different people, it's worth nothing that the file 'fabio_20220601_193018.csv' was discarted 
 due to errors during the sampling procedure, thus we ended up with 10 different people, in order to guarantee inter-subject variabilty.
 
-##### $Run$
-To run the code, simply run sequentially every data cell. 
-The gridsearch function will be available, but only the best parameters will be provided for each model. 
+The data available was studied in three different ways, in order to see if the accuracy of the model could be improved:
+- Raw sampled data
+- Average of data for each sensor
+- Average of data for each sensor + minimun and maximum values for each sensor
+
+#### $Data Preprocessing$
+It's important to note that the first 20 samples of each position recording were removed, due to the patient still not being completely settled down and ready for the sampling. 
+The data was also normalized as good practice dictates.
+
+#### $Data Visualization$
+The data was visualized multiple times, this allowed us to purge it from artifacts and anomalies in order to improve the learning algorithm, such as the *transient
+data* 
 
 #### $Features$
 The data was gathered from 2 accelerometers, one on the chest and one on the right ankle therefore we have 6 inputs:
@@ -83,7 +91,15 @@ The data was gathered from 2 accelerometers, one on the chest and one on the rig
 - x_ankle
 - y_ankle
 - z_ankle
+- sex
 
 #### $Target Variable$
 The variable that we need to predict is the sleeping position. It can be one of twelve position
 
+##### $Run$
+To run the code, simply run sequentially every data cell. 
+The code was tested on all three datasets, and the best performing one turned out to be the **Random Forest Classifier** learned using the **average+min_max** dataset, which reached 50% of accuracy on the test set.
+
+#### $Master Position$
+In order to better assess the performance of the classifier we also tested it only on the four "master" positions: by grouping by three the positions (therefore by eliminating the small variations between each of the main positions) we obtained the **main positions**: supine, prone, left-sided and right-sided. 
+When we tested our algorithm only with these targets, we easily obtained 100% accuracy
