@@ -1,7 +1,7 @@
 /* ===============================================
  *
- * Alfonso Massimo, Canavate Chloé, Franke Patrick
- * Projet 05 - Sleep Position Classifier
+ * Alfonzo Massimo, Canavate Chloé, Franke Patrick
+ * Project 05 - Sleep Position Classifier
  * Electronic Technologies and Biosensor Laboratory
  * Academic year 2021 - 2022
  * cyapicallbacks.h file
