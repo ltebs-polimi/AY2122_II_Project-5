@@ -23,7 +23,7 @@ Also, for wearability, the device is powered with a 9V battery and a subsequent 
 - 1 PSoC CY8CKIT-059 
 - 1 breadboard
 - 2 3D printed casings were used to encapsulate the accelerometers and place them on the body
-- 6 2m long cables to connect the accelerometers to the PSoC
+- 2 2m long cables to connect the accelerometers to the PSoC
 - 2 modular velcro bands to fix the accelerometers in place 
 
 The links between the PSoC and the different components can be found in the dedicated folder in the form of the $hardware setup$ documentation and the eagle schematic and board files.
@@ -40,9 +40,9 @@ All code files of this section have been individually commented on for clarity.
 This section of code deals with establishing a connection between pc and bluetooth module, visualizing the data sampled in real-time, and producing csv files following a specific sampling protocol, which are further used to train the machine learning module. 
 It follows a description of the most important subsections of code, but the code has been commented throughout for clarity.
 #### $Serial$ $interface$
-This subsection is devoted to scanning all serial ports and creating a list used in the drowp down menu.
+This subsection is devoted to scanning all serial ports and creating a list used in the dropdown menu.
 #### $Serial$ $Worker$
-The **Serial Worker** class handles the connection with the bluetooth module by estabilishing a connection with desired serial port (selectable in a drop down menu), reading data from desired serial port from start (S) to end (E) tokens as soon as the Start button is pressed, **storing iteratively** the read lines in the data object and saving them at the end of the protocol in a single csv file.  
+The **SerialWorker** class handles the connection with the bluetooth module by establishing a connection with the desired serial port (selectable in a drop down menu), reading data from this port from start (S) to end (E) tokens as soon as the Start button is pressed, **storing iteratively** the read lines in the data object and saving them at the end of the protocol in a single csv file.  
 It's also responsible for sending char data on the serial port and closing the serial port before closing the app.
 #### $Graphic$ $interface$ 
 This sub-section of code deals with creating the window used by all the plot widgets and the various buttons. 
@@ -52,7 +52,7 @@ The main is responsible for setting the window size, creating the thread handler
 
 ### Machine Learning
 #### $Install$
-The Machine Learning portion of this project was created using a shared Jupyter Notebook. It requires the following Python libraries:
+The Machine Learning portion of this project was created using a Jupyter Notebook. It requires the following Python libraries:
 - [NumPy](http://www.numpy.org/)
 - [Pandas](http://pandas.pydata.org)
 - [seaborn](https://seaborn.pydata.org/)
@@ -78,10 +78,10 @@ The data was also normalized as good practice dictates.
 
 #### $Data Visualization$
 The data was visualized multiple times, this allowed us to purge it from artifacts and anomalies in order to improve the learning algorithm, such as the *transient
-data* 
+data*.
 
 #### $Features$
-The data was gathered from 2 accelerometers, one on the chest and one on the right ankle therefore we have 6 inputs:
+The data was gathered from 2 accelerometers, one on the chest and one on the right ankle. Therefore we have 6 inputs + one input for the subject's sex.
 - x_chest
 - y_chest
 - z_chest
@@ -91,7 +91,7 @@ The data was gathered from 2 accelerometers, one on the chest and one on the rig
 - sex
 
 #### $Target Variable$
-The variable that we need to predict is the sleeping position. It can be one of the twelve positions.
+The variable that we need to predict is the sleeping position. It can be one of twelve positions.
 
 ##### $Run$
 To run the code, simply run sequentially every data cell. 
