@@ -4,17 +4,17 @@
 
 ## Final Project - Project 5 - Sleep position classifier
 ## Objective
-The aim of this project was to develop a system able to correctly classify and forecast 12 typical sleep positions, using the data from two accelerometes LIS3DH placed one on the chest and one on the right ankle. 
+The aim of this project was to develop a system able to correctly classify and forecast 12 specific sleep positions, using the data from two accelerometers LIS3DH placed one on the chest and one on the right ankle. 
 The finished project includes: 
 - development of the wearable device
 - data acquisition
 - data processing
-- GUI for data visualization
+- GUI for data sampling and visualization
 - machine learning architecture able to perform sleep position classification
 
-The PSoC communicates with the LIS3DH sensors using I2C communication with sampling frequency set at 10Hz. 
-The communication between PSoC device and the pc was created using a HC05 Bluetooth module, in order to make the device wearable.
-Also for wearability, the device is powered with a 9V battery and a subsequent 9 to 5 voltage transformer.
+The PSoC communicates with the LIS3DH sensors using I2C communication, and the accelerometers have a sampling frequency set at 10Hz. 
+The communication between the PSoC device and the pc was created using a HC05 Bluetooth module to make the device wearable.
+Also, for wearability, the device is powered with a 9V battery and a subsequent 9 to 5 voltage transformer.
 ### Hardware
 - 2 LIS3DH accelerometers
 - 1 HC05 Bluetooth module
@@ -22,34 +22,31 @@ Also for wearability, the device is powered with a 9V battery and a subsequent 9
 - 1 9to5 voltage transformer
 - 1 PSoC CY8CKIT-059 
 - 1 breadboard
-- 2 3D printed casings used to encapsulate the accelerometers and place them on the body
+- 2 3D printed casings were used to encapsulate the accelerometers and place them on the body
 - 6 2m long cables to connect the accelerometers to the PSoC
 - 2 modular velcro bands to fix the accelerometers in place 
 
-The links between the PSoC and the different components can be found in the dedicated folder in the form of the $hardware setup$ paper and the eagle schematic and board files.
+The links between the PSoC and the different components can be found in the dedicated folder in the form of the $hardware setup$ documentation and the eagle schematic and board files.
 The casing's 3D model can also be found in the dedicated folder.
 
 ### PSoC code
-This section contains all the code needed by the GUI to access to the data sampled and averaged by the accelerometers. 
-This section of code is responsible for data acquisition and processing, which includes managing the PSoC registers (reading them, writing them and averaging the values sampled by both sensors) and for the communication between the bluetooth module and the pc. 
+This section of code is responsible for I2C communication between the PSoC and the 2 accelerometers, which are sampling data with an ODR of 10Hz and are set on FIFO mode. The code further averages the 32 samples of the FIFO buffer from both accelerometers, each time they are simultaneously full.
+Finally, the 6 averaged acceleration values (x, y and z from the chest and the ankle) are combined in a unique string and managed by the UART of the bluetooth module, having a baudrate of 9600 bps.
 
-The different operations are managed with an UART which parses through the operations based on the data it receives from the GUI. 
-When the user clicks $Start$ $sampling$ the PSoC code is put into motion, the data from the accelerometers is sampled, averaged, and sent back to the GUI with the bluetooth module, for each position.
-
-
-All code files of this section have been individually commented for clarity.
+All code files of this section have been individually commented on for clarity.
 
 ### GUI code
-This section of code deals with establishing a connection between pc and PSoC device via bluetooth module, visualizing the data sampled in real time and producing a csv files with all the samplings used to train the machine learning module. 
+
+This section of code deals with establishing a connection between pc and bluetooth module, visualizing the data sampled in real-time, and producing csv files following a specific sampling protocol, which are further used to train the machine learning module. 
 It follows a description of the most important subsections of code, but the code has been commented throughout for clarity.
 #### $Serial$ $interface$
-This subsection is devoted to scanning all serial ports and createing a list used in the drowp down menu
+This subsection is devoted to scanning all serial ports and creating a list used in the drowp down menu.
 #### $Serial$ $Worker$
-The **Serial Worker** class handles the connection with the PSoC device by estabilishing a connection with desired serial port (selectable in a drop down menu), reading data from desired serial port from start (S) to end (E) tokens, **storing iteratively** the read lines in the data object and saving them at the end of the protocol in a single csv file.  
+The **Serial Worker** class handles the connection with the bluetooth module by estabilishing a connection with desired serial port (selectable in a drop down menu), reading data from desired serial port from start (S) to end (E) tokens as soon as the Start button is pressed, **storing iteratively** the read lines in the data object and saving them at the end of the protocol in a single csv file.  
 It's also responsible for sending char data on the serial port and closing the serial port before closing the app.
 #### $Graphic$ $interface$ 
 This sub-section of code deals with creating the window used by all the plot widgets and the various buttons. 
-It's worth noting that the 6 data charts are plotted on the same window by first removing oldest element, then adding the new elements, and finally updating the data.
+It's worth noting that the 6 data charts are plotted on the same window by first removing the oldest point, then adding the new one, and finally updating the data.
 #### $Main$
 The main is responsible for setting the window size, creating the thread handler and initializing all the functions previously mentioned.
 
@@ -65,7 +62,7 @@ The Machine Learning portion of this project was created using a shared Jupyter 
 Every library used and any function needed is clearly listed and commented troughout the code.
 
 #### $Data$
-In order to run the code, it's necessary to download the csv files produced by us during the sampling, when downloading this folder they will be automatically installed in the *dataset* path, allowingto easily run the code.
+In order to run the code, it's necessary to upload the csv files produced by us during the sampling. All the paths are stored in a distinct variable.
 
 The data consists in 11 csv files sampled from 11 different people, it's worth nothing that the file 'fabio_20220601_193018.csv' was discarted 
 due to errors during the sampling procedure, thus we ended up with 10 different people, in order to guarantee inter-subject variabilty.
@@ -94,7 +91,7 @@ The data was gathered from 2 accelerometers, one on the chest and one on the rig
 - sex
 
 #### $Target Variable$
-The variable that we need to predict is the sleeping position. It can be one of twelve position
+The variable that we need to predict is the sleeping position. It can be one of the twelve positions.
 
 ##### $Run$
 To run the code, simply run sequentially every data cell. 
@@ -102,4 +99,4 @@ The code was tested on all three datasets, and the best performing one turned ou
 
 #### $Master Position$
 In order to better assess the performance of the classifier we also tested it only on the four "master" positions: by grouping by three the positions (therefore by eliminating the small variations between each of the main positions) we obtained the **main positions**: supine, prone, left-sided and right-sided. 
-When we tested our algorithm only with these targets, we easily obtained 100% accuracy
+When we tested our algorithm only with these targets, we easily obtained 100% accuracy.
