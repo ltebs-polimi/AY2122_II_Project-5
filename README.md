@@ -6,7 +6,7 @@
 ## Objective
 ![image](https://user-images.githubusercontent.com/100738621/178038332-7114b885-f36a-4cbb-af34-71ec64025219.png)
 
-The aim of this project was to develop a system able to correctly classify and forecast 12 specific sleep positions (visible in the image above), using the data from two accelerometers LIS3DH placed one on the chest and one on the right ankle. 
+The aim of this project was to develop a system able to correctly classify and forecast **12 specific sleep positions** (visible in the image above), using the data from **two accelerometers LIS3DH** placed one on the chest and one on the right ankle. 
 The finished project includes: 
 - development of the wearable device
 - data acquisition
@@ -14,9 +14,9 @@ The finished project includes:
 - GUI for data sampling and visualization
 - machine learning architecture able to perform sleep position classification
 
-The PSoC communicates with the LIS3DH sensors using I2C communication, and the accelerometers have a sampling frequency set at 10Hz. 
-The communication between the PSoC device and the pc was created using a HC05 Bluetooth module to make the device wearable.
-Also, for wearability, the device is powered with a 9V battery and a subsequent 9 to 5 voltage transformer.
+The PSoC communicates with the LIS3DH sensors using **I2C communication**, and the accelerometers have a sampling frequency set at 10Hz. 
+The communication between the PSoC device and the pc was created using a **HC05 Bluetooth module** to make the device wearable.
+Also, for wearability, the device is powered with a **9V battery** and a subsequent **9 to 5 voltage transformer**.
 ### Hardware
 - 2 LIS3DH accelerometers
 - 1 HC05 Bluetooth module
