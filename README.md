@@ -4,6 +4,8 @@
 
 ## Final Project - Project 5 - Sleep position classifier
 ## Objective
+![image](https://user-images.githubusercontent.com/100738621/178038332-7114b885-f36a-4cbb-af34-71ec64025219.png)
+
 The aim of this project was to develop a system able to correctly classify and forecast 12 specific sleep positions, using the data from two accelerometers LIS3DH placed one on the chest and one on the right ankle. 
 The finished project includes: 
 - development of the wearable device
@@ -93,5 +95,5 @@ To run the code, simply run sequentially every data cell.
 The code was tested on all three datasets, and the best performing one turned out to be the **Random Forest Classifier** learned using the **average+min_max** dataset, which reached **50% of accuracy** on the test set.
 
 #### $Master Position$
-In order to better assess the performance of the classifier we also tested it only on the four "master" positions: by grouping by three the positions (therefore by eliminating the small variations between each of the main positions) we obtained the **main positions**: supine, prone, left-sided and right-sided. 
+In order to better assess the performance of the classifier we also tested it only on the four "master" positions: by grouping by three the positions (and therefore eliminating the small variations between each of the main positions) we obtained the **main positions**: supine, prone, left-sided and right-sided. 
 When we tested our algorithm only with these targets, we easily obtained **100% accuracy**.
