@@ -6,7 +6,7 @@
 ## Objective
 ![image](https://user-images.githubusercontent.com/100738621/178038332-7114b885-f36a-4cbb-af34-71ec64025219.png)
 
-The aim of this project was to develop a system able to correctly classify and forecast 12 specific sleep positions, using the data from two accelerometers LIS3DH placed one on the chest and one on the right ankle. 
+The aim of this project was to develop a system able to correctly classify and forecast 12 specific sleep positions (visible in the image above), using the data from two accelerometers LIS3DH placed one on the chest and one on the right ankle. 
 The finished project includes: 
 - development of the wearable device
 - data acquisition
